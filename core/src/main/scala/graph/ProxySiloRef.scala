@@ -26,6 +26,15 @@ abstract class ProxySiloRef[W, T <: Traversable[W]](refId: Int, val host: Host)(
     new ApplySiloRef[W, T, V, S](this, newRefId, g, pickler, unpickler)
   }
 
+  def flatMap[V, S <: Traversable[V]](fun: Spore[T, SiloRef[V, S]])
+    (implicit pickler: Pickler[Spore[T, SiloRef[V, S]]], unpickler: Unpickler[Spore[T, SiloRef[V, S]]]): SiloRef[V, S] = {
+    val newRefId = system.refIds.incrementAndGet()
+    val host = system.location(refId)
+    println(s"apply: register location of $newRefId: $host")
+    system.location += (newRefId -> host)
+    new FMappedSiloRef[W, T, V, S](this, newRefId, fun, pickler, unpickler)
+  }
+
   override def pumpTo[V, R <: Traversable[V], P <: Spore2[W, Emitter[V], Unit]](destSilo: SiloRef[V, R])(fun: P)
                                              (implicit bf: BuilderFactory[V, R], pickler: Pickler[P], unpickler: Unpickler[P]): Unit = {
     // register `this` SiloRef as pump input for `destSilo`

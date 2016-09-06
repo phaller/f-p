@@ -38,7 +38,7 @@ trait SiloRef[W, T <: Traversable[W]] {
                                     (implicit bf: BuilderFactory[V, R], pickler: Pickler[P], unpickler: Unpickler[P]): Unit = ???
 
   def flatMap[V, S <: Traversable[V]](fun: Spore[T, SiloRef[V, S]])
-                                     (implicit pickler: Pickler[Spore[T, SiloRef[V, S]]], unpickler: Unpickler[Spore[T, SiloRef[V, S]]]): SiloRef[V, S] = ???
+                                     (implicit pickler: Pickler[Spore[T, SiloRef[V, S]]], unpickler: Unpickler[Spore[T, SiloRef[V, S]]]): SiloRef[V, S]
 
   def id: SiloRefId
 
