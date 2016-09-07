@@ -39,8 +39,8 @@ object build extends Build {
     settings = standardSettings ++ SbtMultiJvm.multiJvmSettings ++ Seq[Sett](
       name := "f-p core",
       libraryDependencies ++= Seq(
-        "org.scala-lang.modules" %% "spores-core"     % "0.1.3",
-        "org.scala-lang.modules" %% "spores-pickling" % "0.1.3",
+        "org.scala-lang.modules" %% "spores-core"     % "0.2.1",
+        "org.scala-lang.modules" %% "spores-pickling" % "0.2.1",
         "io.netty" % "netty-all" % "4.0.30.Final",
         "com.typesafe.akka" % "akka-actor_2.11" % "2.3.12",
         "com.typesafe.scala-logging" %% "scala-logging"   % "3.1.0",
