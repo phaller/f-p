@@ -61,7 +61,6 @@ final class ReceptorRunnable(queue: BlockingQueue[HandleIncoming], system: Syste
       try {
         // 1. pickle value
         val builder = pickleFormat.createBuilder()
-        builder.hintTag(pickler.tag)
         pickler.pickle(v, builder)
         val p = builder.result()
         numPickled.incrementAndGet()

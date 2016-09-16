@@ -14,6 +14,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import netty.SystemImpl
 
 
+/*
 trait RDD[T] {
   def map[S](fun: T => S): RDD[S]
   def takeAllAsync: Future[Seq[T]]
@@ -72,3 +73,4 @@ object RDDDemo extends App {
 
   system.waitUntilAllClosed()
 }
+*/

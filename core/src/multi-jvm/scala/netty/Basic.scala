@@ -5,7 +5,7 @@ import Defaults._
 import shareNothing._
 
 import scala.spores._
-import SporePickler._
+import SporePicklers._
 
 import scala.concurrent.{Future, Await}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -75,9 +75,9 @@ object BasicMultiJvmNode2 {
   }
 
   def testPumpTo(system: SiloSystem, sourceFut: Future[SiloRef[Person, List[Person]]], host: Host): Unit = {
+    val s = spore { (elem: Person, emit: Emitter[Person]) => emit.emit(elem) }
     val fut = sourceFut.flatMap { source =>
       val target = system.emptySilo[Person, List[Person]](host)
-      val s = spore { (elem: Person, emit: Emitter[Person]) => emit.emit(elem) }
       source.pumpTo(target)(s)
       target.send()
     }

@@ -7,7 +7,7 @@ import Defaults._
 import binary._
 
 import scala.spores._
-import SporePickler._
+import SporePicklers._
 
 import silt._
 import silt.graph._
@@ -25,8 +25,8 @@ class GraphPicklingTest {
   implicit val sup2 = implicitly[Unpickler[Spore2[(String, Int), Emitter[String], Unit]]]
 
   @Test def testPickleGraph(): Unit = {
-    runtime.GlobalRegistry.picklerMap += ("silt.graph.CommandEnvelope" -> { x => silt.graph.Picklers.CommandEnvelopePU })
-    runtime.GlobalRegistry.unpicklerMap += ("silt.graph.CommandEnvelope" -> silt.graph.Picklers.CommandEnvelopePU)
+    scala.pickling.internal.currentRuntime.picklers.registerPickler("silt.graph.CommandEnvelope", silt.graph.Picklers.CommandEnvelopePU)
+    scala.pickling.internal.currentRuntime.picklers.registerUnpickler("silt.graph.CommandEnvelope", silt.graph.Picklers.CommandEnvelopePU)
 
     val fromHost = Host("127.0.0.1", 8091)
     val destHost = Host("127.0.0.1", 8092)

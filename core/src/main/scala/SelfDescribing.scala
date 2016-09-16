@@ -19,7 +19,6 @@ final case class SelfDescribing(unpicklerClassName: String, blob: Array[Byte]) {
     }
 
     val typeString = reader.beginEntry()
-    reader.hintTag(unpicklerInst.tag)
     unpicklerInst.unpickle(unpicklerInst.tag.key, reader)
   }
 }

@@ -26,19 +26,19 @@ trait SendUtils {
     if (msg.isInstanceOf[graph.Graph] || msg.isInstanceOf[InitSiloFun[_, _]]) {
       import json.pickleFormat
       val builder = pickleFormat.createBuilder()
-      builder.hintTag(tag)
       println(s"pickler class: ${pickler.getClass.getName}")
       pickler.pickle(msg, builder)
       val p = builder.result()
       val arr = p.value
       println(s"result: $arr")
+      val anyUnpickler = implicitly[Unpickler[Any]]
+      println(s"Any unpickler class: ${anyUnpickler.getClass.getName}")
       print(s"trying to unpickle... ")
       val up = p.unpickle[Any]
       println(up)
     }
 
     val builder = binary.pickleFormat.createBuilder()
-    builder.hintTag(tag)
     // println(s"pickler class: ${pickler.getClass.getName}")
     try {
       pickler.pickle(msg, builder)

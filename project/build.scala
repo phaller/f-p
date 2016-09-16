@@ -15,7 +15,8 @@ object build extends Build {
       "-deprecation",
       "-encoding", "UTF-8",
       "-feature",
-      "-unchecked"
+      "-unchecked",
+      "-Xprint:explicit"
     ), 
     resolvers ++= (if (version.value.endsWith("-SNAPSHOT")) List(Resolver.sonatypeRepo("snapshots")) else Nil),
     parallelExecution in Global := false,
@@ -39,8 +40,9 @@ object build extends Build {
     settings = standardSettings ++ SbtMultiJvm.multiJvmSettings ++ Seq[Sett](
       name := "f-p core",
       libraryDependencies ++= Seq(
-        "org.scala-lang.modules" %% "spores-core"     % "0.2.1",
-        "org.scala-lang.modules" %% "spores-pickling" % "0.2.1",
+        "org.scala-lang.modules" %% "scala-pickling"  % "0.11.0-SNAPSHOT",
+        "org.scala-lang.modules" %% "spores-core"     % "0.3.0-SNAPSHOT",
+        "org.scala-lang.modules" %% "spores-pickling" % "0.3.0-SNAPSHOT",
         "io.netty" % "netty-all" % "4.0.30.Final",
         "com.typesafe.akka" % "akka-actor_2.11" % "2.3.12",
         "com.typesafe.scala-logging" %% "scala-logging"   % "3.1.0",

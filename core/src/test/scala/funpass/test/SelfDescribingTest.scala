@@ -7,7 +7,7 @@ import Defaults._
 import binary._
 
 import scala.spores._
-import SporePickler._
+import SporePicklers._
 
 import silt.SelfDescribing
 
@@ -20,7 +20,6 @@ class SelfDescribingTest {
   def createSelfDescribing[T](v: T)(implicit pickler: Pickler[T], unpickler: Unpickler[T]): SelfDescribing = {
     // 1. pickle value
     val builder = pickleFormat.createBuilder()
-    builder.hintTag(pickler.tag)
     pickler.pickle(v, builder)
     val p = builder.result()
 

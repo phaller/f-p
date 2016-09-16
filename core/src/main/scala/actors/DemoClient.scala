@@ -30,6 +30,7 @@ class MyPairFactory2 extends SiloFactory[(Int, String), List[(Int, String)]] {
     new LocalSilo(List((4, "e"), (3, "r"), (2, "t")))
 }
 
+/*
 object DemoClient {
   val system = new SystemImpl
   def systemImpl = system
@@ -152,3 +153,4 @@ object DemoClient {
     system.waitUntilAllClosed()
   }
 }
+*/

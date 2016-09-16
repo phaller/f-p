@@ -5,8 +5,8 @@ import scala.reflect.{ClassTag, classTag}
 
 import scala.pickling._
 import Defaults._
-import runtime.GlobalRegistry
 import binary._
+import scala.pickling.internal.currentRuntime // to register custom picklers
 
 import _root_.io.netty.bootstrap.Bootstrap
 import _root_.io.netty.channel.Channel
@@ -58,8 +58,8 @@ class SystemImpl extends SiloSystem with SiloSystemInternal with SendUtils {
     val p = implicitly[Pickler[T]]
     val up = implicitly[Unpickler[T]]
     // println(s"registering for ${clazz.getName()} pickler of class type ${p.getClass.getName}...")
-    GlobalRegistry.picklerMap += (clazz.getName() -> (x => p))
-    GlobalRegistry.unpicklerMap += (clazz.getName() -> up)
+    currentRuntime.picklers.registerPickler(clazz.getName(), p)
+    currentRuntime.picklers.registerUnpickler(clazz.getName(), up)
   }
 
   register[graph.Graph]
